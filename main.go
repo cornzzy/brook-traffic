@@ -15,11 +15,6 @@ type TrafficData struct {
 	Bytes string `json:"bytes"`
 }
 
-type ResultData struct {
-	User  string `json:"user"`
-	Bytes int    `json:"bytes"`
-}
-
 func main() {
 	file, err := os.Open("traffic.txt")
 	if err != nil {
@@ -50,9 +45,10 @@ func main() {
 		log.Fatalf("error reading file: %s", err)
 	}
 
-	var result []ResultData
+	// [{"user": bytes}]
+	var result []map[string]int
 	for user, bytes := range userBytes {
-		result = append(result, ResultData{User: user, Bytes: bytes})
+		result = append(result, map[string]int{user: bytes})
 	}
 
 	output, err := json.Marshal(result)

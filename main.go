@@ -45,13 +45,8 @@ func main() {
 		log.Fatalf("error reading file: %s", err)
 	}
 
-	// [{"user": bytes}]
-	var result []map[string]int
-	for user, bytes := range userBytes {
-		result = append(result, map[string]int{user: bytes})
-	}
-
-	output, err := json.Marshal(result)
+	// Directly marshal the userBytes map to the desired JSON format
+	output, err := json.Marshal(userBytes)
 	if err != nil {
 		log.Fatalf("error marshalling result: %s", err)
 	}
